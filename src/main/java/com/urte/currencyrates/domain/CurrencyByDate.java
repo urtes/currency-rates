@@ -2,6 +2,7 @@ package com.urte.currencyrates.domain;
 
 import com.urte.currencyrates.wsdl.CcyISO4217;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class CurrencyByDate {
 
     public CurrencyByDate(LocalDate date, String code, BigDecimal rate) {

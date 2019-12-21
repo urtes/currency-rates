@@ -8,5 +8,17 @@
 </head>
 <body>
     <h1>Welcome to Currency Rates</h1>
+    <table>
+        <tr>
+            <th>Country Code</th>
+            <th>Currency Rate</th>
+            <th>Date</th>
+        </tr>
+        <tr th:each="currency : ${currencies}">
+            <td th:text="${currency.code}"></td>
+            <td th:text="${currency.rate}"></td>
+            <td th:text="${currency.date}"></td>
+        </tr>
+    </table>
 </body>
 </html>
