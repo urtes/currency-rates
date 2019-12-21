@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.lb.lt/WebServices/FxRates" targetNamespace="http://www.lb.lt/WebServices/FxRates" elementFormDefault="qualified" attributeFormDefault="unqualified">
     <xs:include schemaLocation="http://www.lb.lt/webservices/FxRates/Ccy.xsd" />
-<!--    <xs:include schemaLocation="Ccy.xsd" />-->
 
     <xs:element name="FxRates" type="FxRatesHandling"/>
 

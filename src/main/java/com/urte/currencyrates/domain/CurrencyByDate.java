@@ -16,7 +16,7 @@ import java.util.UUID;
 @Entity
 public class CurrencyByDate {
 
-    public CurrencyByDate(LocalDate date, CcyISO4217 code, BigDecimal rate) {
+    public CurrencyByDate(LocalDate date, String code, BigDecimal rate) {
         this.date = date;
         this.code = code;
         this.rate = rate;
@@ -28,6 +28,6 @@ public class CurrencyByDate {
     @Column(updatable = false, nullable = false)
     private UUID id;
     private LocalDate date;
-    private CcyISO4217 code;
+    private String code;
     private BigDecimal rate;
 }
