@@ -6,13 +6,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
+import java.time.LocalDate;
+
 @Slf4j
 public class CurrencyClient extends WebServiceGatewaySupport {
 
-    public GetFxRatesResponse getCurrencyList() {
+    public GetFxRatesResponse getCurrencyList(LocalDate fromDate) {
         GetFxRates request = new GetFxRates();
         request.setTp("EU");
-        request.setDt("2019-12-21");
+        request.setDt(fromDate.toString());
 
 //        log.debug("TP: " + request.getTp());
 
