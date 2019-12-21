@@ -8,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootApplication
@@ -21,7 +20,7 @@ public class CurrencyRatesApplication {
     @Bean
     CommandLineRunner runner(CurrencyClient currencyClient, CurrencyService currencyService) {
         return args -> {
-            List<CurrencyByDate> currenciesByDate = currencyClient.getCurrenciesByDate(LocalDate.now());
+            List<CurrencyByDate> currenciesByDate = currencyClient.getCurrenciesforLastMonth();
             currencyService.save(currenciesByDate);
         };
     }

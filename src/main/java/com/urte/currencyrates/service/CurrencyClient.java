@@ -1,7 +1,6 @@
 package com.urte.currencyrates.service;
 
 import com.urte.currencyrates.domain.CurrencyByDate;
-import com.urte.currencyrates.wsdl.FxRateHandling;
 import com.urte.currencyrates.wsdl.FxRatesHandling;
 import com.urte.currencyrates.wsdl.GetFxRates;
 import com.urte.currencyrates.wsdl.GetFxRatesResponse;
@@ -16,6 +15,16 @@ import java.util.List;
 
 @Slf4j
 public class CurrencyClient extends WebServiceGatewaySupport {
+
+    public List<CurrencyByDate> getCurrenciesforLastMonth() {
+        List<CurrencyByDate> currenciesforLastMonth = new ArrayList<>();
+        LocalDate end  = LocalDate.now();
+        LocalDate start = end.minusMonths(1);
+        for(LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
+            currenciesforLastMonth.addAll(getCurrenciesByDate(date));
+        }
+        return currenciesforLastMonth;
+    }
 
     public List<CurrencyByDate> getCurrenciesByDate(LocalDate fromDate) {
         List<CurrencyByDate> currenciesByDate = new ArrayList<>();
