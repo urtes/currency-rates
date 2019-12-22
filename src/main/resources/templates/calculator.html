@@ -8,7 +8,9 @@
 </head>
 <body>
     <h1>Welcome to Currency Calculator</h1>
-    <nav th:href="@{/}">Back to Exchange Rates</nav>
+    <nav>
+    <a th:href="@{/}">Back to Exchange Rates</a>
+    </nav>
     <form method="POST" th:object="${resultRequest}" th:action="@{/calculator}">
         <label>Select Currency</label>
         <select name="currency" th:field="*{code}">
