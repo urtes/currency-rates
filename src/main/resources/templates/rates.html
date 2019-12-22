@@ -15,7 +15,9 @@
             <th>Date</th>
         </tr>
         <tr th:each="currency : ${currencies}">
-            <td th:text="${currency.code}"></td>
+            <td>
+                <a th:href="@{|/history/${currency.code}|}" th:text="${currency.code}"></a>
+            </td>
             <td th:text="${currency.rate}"></td>
             <td th:text="${currency.date}"></td>
         </tr>

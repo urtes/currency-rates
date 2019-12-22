@@ -29,4 +29,9 @@ public class CurrencyController {
         model.addAttribute("history", currencyHistory);
         return "history";
     }
+
+    @GetMapping("/counter")
+    public String getCounter(Model model) {
+        return "counter";
+    }
 }
