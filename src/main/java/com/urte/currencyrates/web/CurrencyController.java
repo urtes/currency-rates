@@ -2,6 +2,7 @@ package com.urte.currencyrates.web;
 
 import com.urte.currencyrates.data.CurrencyRepository;
 import com.urte.currencyrates.domain.CurrencyByDate;
+import com.urte.currencyrates.service.CurrencyService;
 import com.urte.currencyrates.transitional.ResultRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,13 +11,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.math.BigDecimal;
+
 @Controller
 public class CurrencyController {
 
     private CurrencyRepository currencyRepository;
+    private CurrencyService currencyService;
 
-    public CurrencyController(CurrencyRepository currencyRepository) {
+    public CurrencyController(CurrencyRepository currencyRepository,
+                              CurrencyService currencyService) {
         this.currencyRepository = currencyRepository;
+        this.currencyService = currencyService;
     }
 
     @GetMapping("/")
@@ -41,8 +47,11 @@ public class CurrencyController {
     }
 
     @PostMapping("/counter")
-    public String count(@ModelAttribute ResultRequest resultRequest){
-        ResultRequest request = resultRequest;
+    public String count(@ModelAttribute ResultRequest resultRequest,
+                        Model model){
+        model.addAttribute("codes", currencyRepository.getCodes());
+        BigDecimal result = currencyService.count(resultRequest);
+        model.addAttribute("result", result);
         return "counter";
     }
 }

@@ -15,9 +15,12 @@
         </select>
 
         <label>Enter amount</label>
-        <input type="text" name="amount" th:field="*{amount}"/><br/>
+        <input type="number" name="amount" th:field="*{amount}" required min="1"/><br/>
 
         <input type="submit" value="Count"/>
     </form>
+    <div th:if="${result} != null">
+        <span th:text="${result}"></span>
+    </div>
 </body>
 </html>

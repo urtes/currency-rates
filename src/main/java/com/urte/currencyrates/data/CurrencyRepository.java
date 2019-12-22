@@ -16,4 +16,6 @@ public interface CurrencyRepository extends JpaRepository<CurrencyByDate, UUID> 
 
     @Query(value = "SELECT DISTINCT CODE FROM CURRENCY_BY_DATE ORDER BY CODE", nativeQuery = true)
     Iterable<String> getCodes();
+
+    CurrencyByDate findFirstByCodeOrderByDateDesc(String code);
 }
