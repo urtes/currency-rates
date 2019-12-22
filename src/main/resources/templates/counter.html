@@ -8,5 +8,16 @@
 </head>
 <body>
     <h1>Welcome to Currency Counter</h1>
+    <form method="POST" th:object="${resultRequest}" th:action="@{/counter}">
+        <label>Select Currency</label>
+        <select name="currency" th:field="*{code}">
+            <option th:each="code: ${codes}" th:value="${code}" th:text="${code}"></option>
+        </select>
+
+        <label>Enter amount</label>
+        <input type="text" name="amount" th:field="*{amount}"/><br/>
+
+        <input type="submit" value="Count"/>
+    </form>
 </body>
 </html>
