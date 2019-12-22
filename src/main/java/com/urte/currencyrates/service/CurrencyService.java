@@ -21,7 +21,7 @@ public class CurrencyService {
         currenciesByDate.forEach(currencyByDate -> currencyRepository.save(currencyByDate));
     }
 
-    public BigDecimal count(ResultRequest resultRequest) {
+    public BigDecimal calculate(ResultRequest resultRequest) {
         BigDecimal amount = new BigDecimal(resultRequest.getAmount());
         CurrencyByDate currencyByDate = currencyRepository.findFirstByCodeOrderByDateDesc(resultRequest.getCode());
         BigDecimal result = currencyByDate.getRate().multiply(amount);

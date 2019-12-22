@@ -39,19 +39,19 @@ public class CurrencyController {
         return "history";
     }
 
-    @GetMapping("/counter")
-    public String getCounter(Model model) {
+    @GetMapping("/calculator")
+    public String getCalculator(Model model) {
         model.addAttribute("codes", currencyRepository.getCodes());
         model.addAttribute("resultRequest", new ResultRequest());
-        return "counter";
+        return "calculator";
     }
 
-    @PostMapping("/counter")
-    public String count(@ModelAttribute ResultRequest resultRequest,
-                        Model model){
+    @PostMapping("/calculator")
+    public String calculate(@ModelAttribute ResultRequest resultRequest,
+                            Model model){
         model.addAttribute("codes", currencyRepository.getCodes());
-        BigDecimal result = currencyService.count(resultRequest);
+        BigDecimal result = currencyService.calculate(resultRequest);
         model.addAttribute("result", result);
-        return "counter";
+        return "calculator";
     }
 }
