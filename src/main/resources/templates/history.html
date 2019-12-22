@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Curerncy History</title>
+</head>
+<body>
+    <h1>Welcome to Currency History</h1>
+    <table>
+        <tr>
+            <th>Country Code</th>
+            <th>Currency Rate</th>
+            <th>Date</th>
+        </tr>
+        <tr th:each="currency : ${history}">
+            <td th:text="${currency.code}"></td>
+            <td th:text="${currency.rate}"></td>
+            <td th:text="${currency.date}"></td>
+        </tr>
+    </table>
+</body>
+</html>

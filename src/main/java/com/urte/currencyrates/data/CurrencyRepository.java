@@ -10,6 +10,7 @@ public interface CurrencyRepository extends JpaRepository<CurrencyByDate, UUID> 
 
     @Query(value = "SELECT * FROM CURRENCY_BY_DATE  WHERE (CODE , DATE ) IN (SELECT CODE, Max(DATE ) FROM " +
             "CURRENCY_BY_DATE GROUP BY CODE ) ORDER BY CODE", nativeQuery = true)
-    public Iterable<CurrencyByDate> selectAllForToday();
+    Iterable<CurrencyByDate> selectAllForToday();
 
+    Iterable<CurrencyByDate> findAllByCodeOrderByDateDesc(String code);
 }

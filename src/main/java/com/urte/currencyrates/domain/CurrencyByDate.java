@@ -33,5 +33,6 @@ public class CurrencyByDate {
     @Id
     private String code;
 
+    @Column(precision = 20, scale = 10)
     private BigDecimal rate;
 }
