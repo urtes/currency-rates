@@ -12,3 +12,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+
+period:
+  days: 5
+  cron:
+    daily: "0 0 0 1/1 * *"
+
+    # every ten seconds, working
+#    daily: "*/10 * * * * *"

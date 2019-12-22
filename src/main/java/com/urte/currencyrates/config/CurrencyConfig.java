@@ -23,5 +23,4 @@ public class CurrencyConfig {
         currencyClient.setUnmarshaller(marshaller);
         return currencyClient;
     }
-
 }

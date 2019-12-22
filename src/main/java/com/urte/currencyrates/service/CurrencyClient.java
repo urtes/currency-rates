@@ -16,19 +16,9 @@ import java.util.List;
 @Slf4j
 public class CurrencyClient extends WebServiceGatewaySupport {
 
-    public List<CurrencyByDate> getCurrenciesForPeriod() {
-        List<CurrencyByDate> currenciesForPeriod = new ArrayList<>();
-        LocalDate end  = LocalDate.now();
-        LocalDate start = end.minusDays(5);
-        for(LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
-            currenciesForPeriod.addAll(getCurrenciesByDate(date));
-        }
-        return currenciesForPeriod;
-    }
-
-    public List<CurrencyByDate> getCurrenciesByDate(LocalDate fromDate) {
+    public List<CurrencyByDate> getCurrenciesByDate(LocalDate localDate) {
         List<CurrencyByDate> currenciesByDate = new ArrayList<>();
-        JAXBElement element = (JAXBElement) getCurrencyList(fromDate)
+        JAXBElement element = (JAXBElement) getCurrencyList(localDate)
                 .getGetFxRatesResult()
                 .getContent()
                 .get(0);
