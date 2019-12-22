@@ -20,7 +20,7 @@ public class CurrencyRatesApplication {
     @Bean
     CommandLineRunner runner(CurrencyClient currencyClient, CurrencyService currencyService) {
         return args -> {
-            List<CurrencyByDate> currenciesByDate = currencyClient.getCurrenciesforLastMonth();
+            List<CurrencyByDate> currenciesByDate = currencyClient.getCurrenciesForPeriod();
             currencyService.save(currenciesByDate);
         };
     }

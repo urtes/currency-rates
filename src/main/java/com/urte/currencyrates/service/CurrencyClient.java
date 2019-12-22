@@ -16,14 +16,14 @@ import java.util.List;
 @Slf4j
 public class CurrencyClient extends WebServiceGatewaySupport {
 
-    public List<CurrencyByDate> getCurrenciesforLastMonth() {
-        List<CurrencyByDate> currenciesforLastMonth = new ArrayList<>();
+    public List<CurrencyByDate> getCurrenciesForPeriod() {
+        List<CurrencyByDate> currenciesForPeriod = new ArrayList<>();
         LocalDate end  = LocalDate.now();
-        LocalDate start = end.minusMonths(1);
+        LocalDate start = end.minusDays(5);
         for(LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
-            currenciesforLastMonth.addAll(getCurrenciesByDate(date));
+            currenciesForPeriod.addAll(getCurrenciesByDate(date));
         }
-        return currenciesforLastMonth;
+        return currenciesForPeriod;
     }
 
     public List<CurrencyByDate> getCurrenciesByDate(LocalDate fromDate) {

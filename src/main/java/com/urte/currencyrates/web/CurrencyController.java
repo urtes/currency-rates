@@ -15,9 +15,9 @@ public class CurrencyController {
         this.currencyRepository = currencyRepository;
     }
 
-    @GetMapping("/rates")
+    @GetMapping("/")
     public String getRates(Model model) {
-        Iterable<CurrencyByDate> currenciesByDate = currencyRepository.findAll();
+        Iterable<CurrencyByDate> currenciesByDate = currencyRepository.selectAllForToday();
         model.addAttribute("currencies", currenciesByDate);
         return "rates";
     }

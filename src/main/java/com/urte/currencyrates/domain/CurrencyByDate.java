@@ -1,14 +1,10 @@
 package com.urte.currencyrates.domain;
 
-import com.urte.currencyrates.wsdl.CcyISO4217;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -16,6 +12,7 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
+@IdClass(CurrencyByDateId.class)
 public class CurrencyByDate {
 
     public CurrencyByDate(LocalDate date, String code, BigDecimal rate) {
@@ -24,12 +21,17 @@ public class CurrencyByDate {
         this.rate = rate;
     }
 
+//    @Id
+//    @GeneratedValue(generator = "UUID")
+//    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+//    @Column(updatable = false, nullable = false)
+//    private UUID id;
+
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(updatable = false, nullable = false)
-    private UUID id;
     private LocalDate date;
+
+    @Id
     private String code;
+
     private BigDecimal rate;
 }
