@@ -4,7 +4,6 @@ import com.urte.currencyrates.domain.CurrencyByDate;
 import com.urte.currencyrates.wsdl.FxRatesHandling;
 import com.urte.currencyrates.wsdl.GetFxRates;
 import com.urte.currencyrates.wsdl.GetFxRatesResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
@@ -13,8 +12,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
 public class CurrencyClient extends WebServiceGatewaySupport {
+
+    private static final String URI = "http://www.lb.lt/webservices/FxRates/FxRates.asmx";
+    private static final String SOAP_ACTION = "http://www.lb.lt/WebServices/FxRates/getFxRates";
 
     public List<CurrencyByDate> getCurrenciesByDate(LocalDate localDate) {
         List<CurrencyByDate> currenciesByDate = new ArrayList<>();
@@ -38,8 +39,8 @@ public class CurrencyClient extends WebServiceGatewaySupport {
         request.setDt(fromDate.toString());
 
         return (GetFxRatesResponse) getWebServiceTemplate()
-                .marshalSendAndReceive("http://www.lb.lt/webservices/FxRates/FxRates.asmx",
+                .marshalSendAndReceive(URI,
                         request,
-                        new SoapActionCallback("http://www.lb.lt/WebServices/FxRates/getFxRates"));
+                        new SoapActionCallback(SOAP_ACTION));
     }
 }
