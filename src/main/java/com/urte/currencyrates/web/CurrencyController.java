@@ -3,15 +3,14 @@ package com.urte.currencyrates.web;
 import com.urte.currencyrates.data.CurrencyRepository;
 import com.urte.currencyrates.domain.CurrencyByDate;
 import com.urte.currencyrates.service.CurrencyService;
-import com.urte.currencyrates.transitional.ResultRequest;
+import com.urte.currencyrates.transitional.ConversionRequest;
+import com.urte.currencyrates.transitional.ConversionResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.math.BigDecimal;
 
 @Controller
 public class CurrencyController {
@@ -42,16 +41,17 @@ public class CurrencyController {
     @GetMapping("/calculator")
     public String getCalculator(Model model) {
         model.addAttribute("codes", currencyRepository.getCodes());
-        model.addAttribute("resultRequest", new ResultRequest());
+        model.addAttribute("conversionRequest", new ConversionRequest());
         return "calculator";
     }
 
     @PostMapping("/calculator")
-    public String calculate(@ModelAttribute ResultRequest resultRequest,
+    public String calculate(@ModelAttribute ConversionRequest conversionRequest,
                             Model model){
         model.addAttribute("codes", currencyRepository.getCodes());
-        BigDecimal result = currencyService.calculate(resultRequest);
-        model.addAttribute("result", result);
+        model.addAttribute("conversionRequest", conversionRequest);
+        ConversionResult conversionResult = currencyService.convert(conversionRequest);
+        model.addAttribute("conversionResult", conversionResult);
         return "calculator";
     }
 }

@@ -2,7 +2,8 @@ package com.urte.currencyrates.service;
 
 import com.urte.currencyrates.data.CurrencyRepository;
 import com.urte.currencyrates.domain.CurrencyByDate;
-import com.urte.currencyrates.transitional.ResultRequest;
+import com.urte.currencyrates.transitional.ConversionRequest;
+import com.urte.currencyrates.transitional.ConversionResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -46,11 +47,12 @@ public class CurrencyService {
         currenciesByDate.forEach(currencyByDate -> currencyRepository.save(currencyByDate));
     }
 
-    public BigDecimal calculate(ResultRequest resultRequest) {
-        BigDecimal amount = new BigDecimal(resultRequest.getAmount());
-        CurrencyByDate currencyByDate = currencyRepository.findFirstByCodeOrderByDateDesc(resultRequest.getCode());
-        BigDecimal result = currencyByDate.getRate().multiply(amount);
-        return result;
+    public ConversionResult convert(ConversionRequest conversionRequest) {
+        BigDecimal amount = new BigDecimal(conversionRequest.getAmount());
+        CurrencyByDate currencyByDate = currencyRepository.findFirstByCodeOrderByDateDesc(conversionRequest.getCode());
+        BigDecimal rate = currencyByDate.getRate();
+        BigDecimal count = rate.multiply(amount);
+        return new ConversionResult(rate, count);
     }
 
     private List<CurrencyByDate> getCurrenciesForPeriod() {

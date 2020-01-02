@@ -11,7 +11,7 @@
     <nav>
     <a th:href="@{/}">Back to Exchange Rates</a>
     </nav>
-    <form method="POST" th:object="${resultRequest}" th:action="@{/calculator}">
+    <form method="POST" th:object="${conversionRequest}" th:action="@{/calculator}">
         <label>Select Currency</label>
         <select name="currency" th:field="*{code}">
             <option th:each="code: ${codes}" th:value="${code}" th:text="${code}"></option>
@@ -22,8 +22,15 @@
 
         <input type="submit" value="Count"/>
     </form>
-    <div th:if="${result} != null">
-        <span th:text="${result}"></span>
+    <div th:if="${conversionResult} != null">
+        <div>
+            Sum:
+            <span th:text="${conversionResult.count}"></span>
+        </div>
+        <div>
+            Rate:
+            <span th:text="${conversionResult.rate}"></span>
+        </div>
     </div>
 </body>
 </html>
