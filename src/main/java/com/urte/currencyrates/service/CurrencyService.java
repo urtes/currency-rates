@@ -23,7 +23,7 @@ public class CurrencyService {
     private CurrencyClient currencyClient;
 
     @Value("${period.days}")
-    private int period;
+    protected int period;
 
     public CurrencyService(CurrencyRepository currencyRepository,
                            CurrencyClient currencyClient) {
@@ -43,10 +43,6 @@ public class CurrencyService {
         save(todayRates);
     }
 
-    public void save(List<CurrencyByDate> currenciesByDate) {
-        currenciesByDate.forEach(currencyByDate -> currencyRepository.save(currencyByDate));
-    }
-
     public ConversionResult convert(ConversionRequest conversionRequest) {
         BigDecimal amount = new BigDecimal(conversionRequest.getAmount());
         CurrencyByDate currencyByDate = currencyRepository.findFirstByCodeOrderByDateDesc(conversionRequest.getCode());
@@ -55,7 +51,7 @@ public class CurrencyService {
         return new ConversionResult(rate, count);
     }
 
-    private List<CurrencyByDate> getCurrenciesForPeriod() {
+    protected List<CurrencyByDate> getCurrenciesForPeriod() {
         List<CurrencyByDate> currenciesForPeriod = new ArrayList<>();
         LocalDate end  = LocalDate.now();
         LocalDate start = end.minusDays(period);
@@ -63,5 +59,9 @@ public class CurrencyService {
             currenciesForPeriod.addAll(currencyClient.getCurrenciesByDate(date));
         }
         return currenciesForPeriod;
+    }
+
+    protected void save(List<CurrencyByDate> currenciesByDate) {
+        currenciesByDate.forEach(currencyByDate -> currencyRepository.save(currencyByDate));
     }
 }
