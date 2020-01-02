@@ -37,7 +37,7 @@ public class CurrencyService {
         save(currenciesByDate);
     }
 
-    @Scheduled(cron = "${period.cron.daily}")
+    @Scheduled(cron = "${period.cron}")
     public void addTodayRates() {
         List<CurrencyByDate> todayRates = currencyClient.getCurrenciesByDate(LocalDate.now());
         save(todayRates);
