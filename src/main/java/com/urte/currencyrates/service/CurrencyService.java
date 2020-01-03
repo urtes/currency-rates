@@ -44,10 +44,9 @@ public class CurrencyService {
     }
 
     public ConversionResult convert(ConversionRequest conversionRequest) {
-        BigDecimal amount = new BigDecimal(conversionRequest.getAmount());
         CurrencyByDate currencyByDate = currencyRepository.findFirstByCodeOrderByDateDesc(conversionRequest.getCode());
         BigDecimal rate = currencyByDate.getRate();
-        BigDecimal count = rate.multiply(amount);
+        BigDecimal count = rate.multiply(conversionRequest.getAmount());
         return new ConversionResult(rate, count);
     }
 

@@ -34,6 +34,7 @@ public class CurrencyController {
     @GetMapping("/history/{code}")
     public String getHistory(@PathVariable String code, Model model) {
         Iterable<CurrencyByDate> currencyHistory = currencyRepository.findAllByCodeOrderByDateDesc(code);
+        model.addAttribute("code", currencyHistory.iterator().next().getCode());
         model.addAttribute("history", currencyHistory);
         return "history";
     }

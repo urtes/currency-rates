@@ -68,7 +68,7 @@ public class CurrencyControllerTest {
     public void testCalculate() throws Exception {
         ConversionRequest conversionRequest = new ConversionRequest();
         conversionRequest.setCode("TEST");
-        conversionRequest.setAmount(5L);
+        conversionRequest.setAmount(new BigDecimal("5"));
         ConversionResult conversionResult = new ConversionResult(new BigDecimal("2"), new BigDecimal("10"));
 
         when(mockCurrencyService.convert(any(ConversionRequest.class)))
