@@ -2,6 +2,7 @@ package com.urte.currencyrates.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.urte.currencyrates.data.CurrencyRepository;
+import com.urte.currencyrates.domain.CurrencyByDate;
 import com.urte.currencyrates.service.CurrencyService;
 import com.urte.currencyrates.transitional.ConversionRequest;
 import com.urte.currencyrates.transitional.ConversionResult;
@@ -13,6 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -45,9 +50,16 @@ public class CurrencyControllerTest {
 
     @Test
     public void testGetHistory() throws Exception {
+        List<CurrencyByDate> currenciesByDate = new ArrayList<>(Arrays.asList(
+                new CurrencyByDate(LocalDate.now(), "TEST1", new BigDecimal("1")),
+                new CurrencyByDate(LocalDate.now(), "TEST2", new BigDecimal("2"))
+        ));
+
+        doReturn(currenciesByDate).when(mockCurrencyRepository).findAllByCodeOrderByDateDesc(anyString());
+
         mockMvc.perform(get("/history/AUD"))
                 .andExpect(status().isOk())
-                .andExpect(model().attributeExists("history"))
+                .andExpect(model().attributeExists("code", "history"))
                 .andExpect(view().name("history"));
         verify(mockCurrencyRepository,
                 times(1)).findAllByCodeOrderByDateDesc(anyString());
