@@ -10,31 +10,35 @@
     <link rel="stylesheet"
           href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" />
 </head>
-<body>
-    <h1>Welcome to Currency Calculator</h1>
-    <nav>
-    <a th:href="@{/}">Back to Exchange Rates</a>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-dark p-0 shadow">
+    <a class="navbar-brand col-md-2" th:href="@{/}">Back to Exchange Rates</a>
     </nav>
-    <form method="POST" th:object="${conversionRequest}" th:action="@{/calculator}">
-        <label>Select Currency</label>
-        <select name="currency" th:field="*{code}">
-            <option th:each="code: ${codes}" th:value="${code}" th:text="${code}"></option>
-        </select>
-
-        <label>Enter amount</label>
-        <input type="number" name="amount" th:field="*{amount}" required min="1"/><br/>
-
-        <input type="submit" value="Count"/>
-    </form>
-    <div th:if="${conversionResult} != null">
-        <div>
-            Sum:
-            <span th:text="${#numbers.formatDecimal(conversionResult.count, 0, 5)}"></span>
-        </div>
-        <div>
-            Rate:
-            <span th:text="${#numbers.formatDecimal(conversionResult.rate, 0, 5)}"></span>
-        </div>
+    <h2 class="d-flex justify-content-center m-3">Currency Calculator</h2>
+    <div class="container">
+        <form method="POST" th:object="${conversionRequest}" th:action="@{/calculator}">
+            <label>Select Currency</label>
+            <select class="form-control" name="currency" th:field="*{code}">
+                <option th:each="code: ${codes}" th:value="${code}" th:text="${code}"></option>
+            </select>
+            <label class="mt-3">Enter amount</label>
+            <input class="form-control" type="number" name="amount" th:field="*{amount}" required min="1"/><br/>
+            <input class="btn btn-success mb-4" type="submit" value="Count"/>
+        </form>
+        <ul class="list-group mb-3" th:if="${conversionResult} != null">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                <div>
+                    Total:
+                </div>
+                <span th:text="${#numbers.formatDecimal(conversionResult.count, 1, 5)}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+                <div>
+                    Conversion Rate:
+                </div>
+                <span th:text="${#numbers.formatDecimal(conversionResult.rate, 1, 5)}"></span>
+            </li>
+        </ul>
     </div>
 <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>

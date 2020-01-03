@@ -10,23 +10,27 @@
     <link rel="stylesheet"
           href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" />
 </head>
-<body>
-    <h1>Welcome to Currency History</h1>
-    <nav>
-    <a th:href="@{/}">Back to Exchange Rates</a>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-dark p-0 shadow">
+    <a class="navbar-brand col-md-2" th:href="@{/}">Back to Exchange Rates</a>
     </nav>
-    <table>
-        <tr>
-            <th>Country Code</th>
-            <th>Currency Rate</th>
-            <th>Date</th>
-        </tr>
-        <tr th:each="currency : ${history}">
-            <td th:text="${currency.code}"></td>
-            <td th:text="${#numbers.formatDecimal(currency.rate, 0, 5)}"></td>
-            <td th:text="${currency.date}"></td>
-        </tr>
-    </table>
+    <h2 class="d-flex justify-content-center m-3">Exchange Rate History for&nbsp;<span th:text="${code}"></span></h2>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Currency Rate</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tr th:each="currency : ${history}">
+                    <td th:text="${#numbers.formatDecimal(currency.rate, 1, 5)}"></td>
+                    <td th:text="${currency.date}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>
