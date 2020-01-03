@@ -6,6 +6,7 @@ import com.urte.currencyrates.domain.CurrencyByDate;
 import com.urte.currencyrates.service.CurrencyService;
 import com.urte.currencyrates.transitional.ConversionRequest;
 import com.urte.currencyrates.transitional.ConversionResult;
+import com.urte.currencyrates.validation.CurrencyCodeValidator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.validation.ConstraintValidatorContext;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -38,6 +40,9 @@ public class CurrencyControllerTest {
 
     @MockBean
     CurrencyService mockCurrencyService;
+
+    @MockBean
+    CurrencyCodeValidator validator;
 
     @Test
     public void testGetRates() throws Exception {
@@ -79,12 +84,13 @@ public class CurrencyControllerTest {
     @Test
     public void testCalculate() throws Exception {
         ConversionRequest conversionRequest = new ConversionRequest();
-        conversionRequest.setCode("TEST");
+        conversionRequest.setCode("AUD");
         conversionRequest.setAmount(new BigDecimal("5"));
         ConversionResult conversionResult = new ConversionResult(new BigDecimal("2"), new BigDecimal("10"));
 
-        when(mockCurrencyService.convert(any(ConversionRequest.class)))
-                .thenReturn(conversionResult);
+        doReturn(conversionResult).when(mockCurrencyService).convert(conversionRequest);
+        doReturn(true).when(mockCurrencyRepository).existsByCode("AUD");
+        doReturn(true).when(validator).isValid(anyString(), any(ConstraintValidatorContext.class));
 
         mockMvc.perform(post("/calculator")
                 .content(objectMapper.writeValueAsString(conversionRequest))
@@ -99,4 +105,10 @@ public class CurrencyControllerTest {
         verify(mockCurrencyRepository, times(1)).getCodes();
         verify(mockCurrencyService, times(1)).convert(any(ConversionRequest.class));
     }
+
+//    @Test
+//    public void testCalculateBadRequest() throws Exception {
+//        mockMvc.perform(post("/calculator")
+//                .content())
+//    }
 }

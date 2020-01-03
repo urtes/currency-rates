@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+
 @Controller
 public class CurrencyController {
 
@@ -47,7 +49,7 @@ public class CurrencyController {
     }
 
     @PostMapping("/calculator")
-    public String calculate(@ModelAttribute ConversionRequest conversionRequest,
+    public String calculate(@ModelAttribute @Valid ConversionRequest conversionRequest,
                             Model model){
         model.addAttribute("codes", currencyRepository.getCodes());
         model.addAttribute("conversionRequest", conversionRequest);

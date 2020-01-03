@@ -18,4 +18,6 @@ public interface CurrencyRepository extends JpaRepository<CurrencyByDate, UUID> 
     Iterable<String> getCodes();
 
     CurrencyByDate findFirstByCodeOrderByDateDesc(String code);
+
+    Boolean existsByCode(String code);
 }
