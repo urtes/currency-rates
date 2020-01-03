@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Curerncy History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Currency History</title>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" />
 </head>
 <body>
     <h1>Welcome to Currency History</h1>
@@ -19,9 +23,10 @@
         </tr>
         <tr th:each="currency : ${history}">
             <td th:text="${currency.code}"></td>
-            <td th:text="${currency.rate}"></td>
+            <td th:text="${#numbers.formatDecimal(currency.rate, 0, 5)}"></td>
             <td th:text="${currency.date}"></td>
         </tr>
     </table>
+<script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>

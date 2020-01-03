@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Currency Rates</title>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" />
 </head>
 <body>
     <h1>Welcome to Currency Calculator</h1>
@@ -25,12 +29,13 @@
     <div th:if="${conversionResult} != null">
         <div>
             Sum:
-            <span th:text="${conversionResult.count}"></span>
+            <span th:text="${#numbers.formatDecimal(conversionResult.count, 0, 5)}"></span>
         </div>
         <div>
             Rate:
-            <span th:text="${conversionResult.rate}"></span>
+            <span th:text="${#numbers.formatDecimal(conversionResult.rate, 0, 5)}"></span>
         </div>
     </div>
+<script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>
