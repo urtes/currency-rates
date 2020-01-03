@@ -103,7 +103,7 @@
                 <configuration>
                     <schemaLanguage>WSDL</schemaLanguage>
                     <generatePackage>com.urte.currencyrates.wsdl</generatePackage>
-                    <schemaDirectory>src/main/resources</schemaDirectory>
+                    <schemaDirectory>src/main/resources/soap</schemaDirectory>
                     <schemaIncludes>
                         <include>FxRates.xsd</include>
                         <include>FxRates.wsdl</include>
