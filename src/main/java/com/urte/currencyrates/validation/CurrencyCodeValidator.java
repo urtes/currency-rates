@@ -15,6 +15,6 @@ public class CurrencyCodeValidator implements ConstraintValidator<CurrencyCodeCo
 
     @Override
     public boolean isValid(String code, ConstraintValidatorContext context) {
-        return currencyRepository.existsByCode(code);
+        return currencyRepository.existsByCode(code.toUpperCase().trim());
     }
 }

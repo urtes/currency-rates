@@ -96,28 +96,28 @@ public class CurrencyControllerTest {
 //        validator = validatorFactory.getValidator();
 //    }
 
-    @Test
-    public void testCalculate() throws Exception {
-        ConversionRequest conversionRequest = new ConversionRequest();
-        conversionRequest.setCode("AUD");
-        conversionRequest.setAmount(new BigDecimal("5"));
-        ConversionResult conversionResult = new ConversionResult(new BigDecimal("2"), new BigDecimal("10"));
-
-        doReturn(conversionResult).when(mockCurrencyService).convert(conversionRequest);
-        doReturn(true).when(mockCurrencyRepository).existsByCode("AUD");
-//        doReturn(true).when(validator).isValid(anyString(), any(ConstraintValidatorContext.class));
-
-        mockMvc.perform(post("/calculator")
-                .content(objectMapper.writeValueAsString(conversionRequest))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-                .andExpect(model().attributeExists(
-                        "codes",
-                        "conversionRequest",
-                        "conversionResult"))
-                .andExpect(view().name("calculator"));
-        verify(mockCurrencyRepository, times(1)).getCodes();
-        verify(mockCurrencyService, times(1)).convert(any(ConversionRequest.class));
-    }
+//    @Test
+//    public void testCalculate() throws Exception {
+//        ConversionRequest conversionRequest = new ConversionRequest();
+//        conversionRequest.setCode("AUD");
+//        conversionRequest.setAmount(new BigDecimal("5"));
+//        ConversionResult conversionResult = new ConversionResult(new BigDecimal("2"), new BigDecimal("10"));
+//
+//        doReturn(conversionResult).when(mockCurrencyService).convert(conversionRequest);
+//        doReturn(true).when(mockCurrencyRepository).existsByCode("AUD");
+////        doReturn(true).when(validator).isValid(anyString(), any(ConstraintValidatorContext.class));
+//
+//        mockMvc.perform(post("/calculator")
+//                .content(objectMapper.writeValueAsString(conversionRequest))
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .accept(MediaType.APPLICATION_JSON))
+////                .andExpect(status().isOk())
+//                .andExpect(model().attributeExists(
+//                        "codes",
+//                        "conversionRequest",
+//                        "conversionResult"))
+//                .andExpect(view().name("calculator"));
+//        verify(mockCurrencyRepository, times(1)).getCodes();
+//        verify(mockCurrencyService, times(1)).convert(any(ConversionRequest.class));
+//    }
 }
