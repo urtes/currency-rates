@@ -29,6 +29,7 @@ public class CurrencyServiceTest {
     public void testConvert() {
         ConversionRequest conversionRequest = new ConversionRequest();
         conversionRequest.setAmount(new BigDecimal("2"));
+        conversionRequest.setCode("TEST");
 
         when(mockCurrencyRepository.findFirstByCodeOrderByDateDesc(conversionRequest.getCode()))
                 .thenReturn(new CurrencyByDate(LocalDate.now(), "TEST", new BigDecimal("5")));
