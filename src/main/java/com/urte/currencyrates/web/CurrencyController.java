@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @Validated
@@ -30,15 +31,15 @@ public class CurrencyController {
 
     @GetMapping("/")
     public String getRates(Model model) {
-        Iterable<CurrencyByDate> currenciesByDate = currencyRepository.getAllForToday();
+        List<CurrencyByDate> currenciesByDate = currencyRepository.getAllForToday();
         model.addAttribute("currencies", currenciesByDate);
         return "rates";
     }
 
     @GetMapping("/history/{code}")
     public String getHistory(@PathVariable String code, Model model) {
-        Iterable<CurrencyByDate> currencyHistory = currencyRepository.findAllByCodeOrderByDateDesc(code);
-        model.addAttribute("code", currencyHistory.iterator().next().getCode());
+        List<CurrencyByDate> currencyHistory = currencyRepository.findAllByCodeOrderByDateDesc(code);
+        model.addAttribute("code", currencyHistory.get(0).getCode());
         model.addAttribute("history", currencyHistory);
         return "history";
     }
