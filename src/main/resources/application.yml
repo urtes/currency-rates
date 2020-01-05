@@ -14,5 +14,5 @@ spring:
       ddl-auto: create-drop
 
 period:
-  days: 5
-  cron: "0 0 0 1/1 * *"
+ days: 20
+ cron: "0 0 0 1/1 * *"

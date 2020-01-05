@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.urte</groupId>
     <artifactId>currency-rates</artifactId>
-    <version>0.0.1-RELEASE</version>
+    <version>0.0.2-RELEASE</version>
     <name>currency-rates</name>
     <description>Project for currency rates</description>
 

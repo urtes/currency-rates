@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -71,7 +70,7 @@ public class CurrencyController {
     }
 
     @PostMapping("/calculator")
-    public String calculate(@ModelAttribute @Valid ConversionRequest conversionRequest,
+    public String calculate(@ModelAttribute ConversionRequest conversionRequest,
                             Model model){
         List<String> codes = currencyRepository.getCodes();
         ConversionResult conversionResult = currencyService.convert(conversionRequest);
