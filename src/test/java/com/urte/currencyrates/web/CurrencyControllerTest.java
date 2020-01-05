@@ -4,23 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.urte.currencyrates.data.CurrencyRepository;
 import com.urte.currencyrates.domain.CurrencyByDate;
 import com.urte.currencyrates.service.CurrencyService;
-import com.urte.currencyrates.transitional.ConversionRequest;
-import com.urte.currencyrates.transitional.ConversionResult;
-import com.urte.currencyrates.validation.CurrencyCodeValidator;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import javax.validation.ConstraintValidatorContext;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,7 +19,6 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
@@ -47,11 +36,6 @@ public class CurrencyControllerTest {
 
     @MockBean
     CurrencyService mockCurrencyService;
-
-//    @MockBean
-//    CurrencyCodeValidator validator;
-
-//    Validator validator;
 
     @Test
     public void testGetRates() throws Exception {
@@ -89,35 +73,4 @@ public class CurrencyControllerTest {
                 .andExpect(view().name("calculator"));
         verify(mockCurrencyRepository, times(1)).getCodes();
     }
-
-//    @Before
-//    public void setUp() {
-//        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-//        validator = validatorFactory.getValidator();
-//    }
-
-//    @Test
-//    public void testCalculate() throws Exception {
-//        ConversionRequest conversionRequest = new ConversionRequest();
-//        conversionRequest.setCode("AUD");
-//        conversionRequest.setAmount(new BigDecimal("5"));
-//        ConversionResult conversionResult = new ConversionResult(new BigDecimal("2"), new BigDecimal("10"));
-//
-//        doReturn(conversionResult).when(mockCurrencyService).convert(conversionRequest);
-//        doReturn(true).when(mockCurrencyRepository).existsByCode("AUD");
-////        doReturn(true).when(validator).isValid(anyString(), any(ConstraintValidatorContext.class));
-//
-//        mockMvc.perform(post("/calculator")
-//                .content(objectMapper.writeValueAsString(conversionRequest))
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON))
-////                .andExpect(status().isOk())
-//                .andExpect(model().attributeExists(
-//                        "codes",
-//                        "conversionRequest",
-//                        "conversionResult"))
-//                .andExpect(view().name("calculator"));
-//        verify(mockCurrencyRepository, times(1)).getCodes();
-//        verify(mockCurrencyService, times(1)).convert(any(ConversionRequest.class));
-//    }
 }
