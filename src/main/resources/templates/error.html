@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Error</title>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" />
+</head>
+<body class="bg-light">
+<div class="container">
+    <p class="mt-5">Something unexpected has happened.</p>
+    <a th:href="@{${link}}">Try again</a>
+</div>
+</body>
+</html>

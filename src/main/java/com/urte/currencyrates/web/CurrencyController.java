@@ -32,6 +32,12 @@ public class CurrencyController {
     @GetMapping("/")
     public String getRates(Model model) {
         List<CurrencyByDate> currenciesByDate = currencyRepository.getAllForToday();
+
+        if(currenciesByDate == null || currenciesByDate.size() == 0) {
+            model.addAttribute("link", "/");
+            return "error";
+        }
+
         model.addAttribute("currencies", currenciesByDate);
         return "rates";
     }
@@ -39,6 +45,12 @@ public class CurrencyController {
     @GetMapping("/history/{code}")
     public String getHistory(@PathVariable String code, Model model) {
         List<CurrencyByDate> currencyHistory = currencyRepository.findAllByCodeOrderByDateDesc(code);
+
+        if(currencyHistory == null || currencyHistory.size() == 0) {
+            model.addAttribute("link", String.format("/history/{%s}", code));
+            return "error";
+        }
+
         model.addAttribute("code", currencyHistory.get(0).getCode());
         model.addAttribute("history", currencyHistory);
         return "history";
@@ -46,7 +58,14 @@ public class CurrencyController {
 
     @GetMapping("/calculator")
     public String getCalculator(Model model) {
-        model.addAttribute("codes", currencyRepository.getCodes());
+        List<String> codes = currencyRepository.getCodes();
+
+        if(codes == null || codes.size() == 0) {
+            model.addAttribute("link", "/calculator");
+            return "error";
+        }
+
+        model.addAttribute("codes", codes);
         model.addAttribute("conversionRequest", new ConversionRequest());
         return "calculator";
     }
@@ -54,9 +73,16 @@ public class CurrencyController {
     @PostMapping("/calculator")
     public String calculate(@ModelAttribute @Valid ConversionRequest conversionRequest,
                             Model model){
-        model.addAttribute("codes", currencyRepository.getCodes());
-        model.addAttribute("conversionRequest", conversionRequest);
+        List<String> codes = currencyRepository.getCodes();
         ConversionResult conversionResult = currencyService.convert(conversionRequest);
+
+        if(codes == null || codes.size() == 0 || conversionResult == null) {
+            model.addAttribute("link", "/calculator");
+            return "error";
+        }
+
+        model.addAttribute("codes", codes);
+        model.addAttribute("conversionRequest", conversionRequest);
         model.addAttribute("conversionResult", conversionResult);
         return "calculator";
     }

@@ -57,9 +57,11 @@ public class CurrencyService {
         List<CurrencyByDate> currenciesForPeriod = new ArrayList<>();
         LocalDate end  = LocalDate.now();
         LocalDate start = end.minusDays(period);
+
         for(LocalDate date = start; date.isBefore(end); date = date.plusDays(1)) {
             currenciesForPeriod.addAll(currencyClient.getCurrenciesByDate(date));
         }
+
         return currenciesForPeriod;
     }
 
